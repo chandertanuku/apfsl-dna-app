@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="manifest" href="manifest.json">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>APFSL DNA Section - Daily Data Entry</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f2f5;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            border-radius: 28px;
+            padding: 20px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        h1 {
+            font-size: 1.6rem;
+            color: #1e3c72;
+            border-left: 6px solid #2c7da0;
+            padding-left: 15px;
+            margin-top: 0;
+        }
+        .date-box {
+            background: #e9f0f5;
+            padding: 12px;
+            border-radius: 16px;
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .section-card {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border: 1px solid #dce5ec;
+        }
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #0b3b5f;
+            background: #d9eaf5;
+            padding: 8px 12px;
+            border-radius: 30px;
+            margin-bottom: 15px;
+        }
+        .subsection {
+            margin: 15px 0;
+            padding-left: 10px;
+            border-left: 3px solid #2c7da0;
+        }
+        .subtitle {
+            font-weight: 600;
+            color: #1f5068;
+            margin: 10px 0 5px;
+        }
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 12px;
+            align-items: center;
+        }
+        .field {
+            flex: 1;
+            min-width: 140px;
+        }
+        label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            font-weight: bold;
+            color: #2c6979;
+            display: block;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px 10px;
+            border-radius: 16px;
+            border: 1px solid #cbdde6;
+            font-size: 0.9rem;
+            background: white;
+        }
+        input:focus {
+            outline: none;
+            border-color: #2c7da0;
+        }
+        .officer-group {
+            background: #f8fafc;
+            padding: 12px;
+            border-radius: 18px;
+            margin-bottom: 12px;
+        }
+        button {
+            background: #2c7da0;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 40px;
+            font-size: 1rem;
+            font-weight: bold;
+            width: 100%;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .save-status {
+            background: #e6f4ea;
+            padding: 10px;
+            border-radius: 20px;
+            margin: 15px 0;
+            text-align: center;
+            font-size: 0.85rem;
+        }
+        .export-btn {
+            background: #2c5f2d;
+            margin-top: 5px;
+        }
+        hr {
+            margin: 20px 0;
+        }
+        .pending-total {
+            background: #fef9e6;
+            padding: 12px;
+            border-radius: 16px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>🧬 APFSL DNA Section</h1>
+    <div class="date-box">
+        📅 Daily Data Entry — <span id="displayDate"></span>
+    </div>
+
+    <form id="dailyForm">
+        <!-- SECTION 1: DNA CRIME & MISSING IDENTITY (combined as per DSR) -->
+        <div class="section-card">
+            <div class="section-title">🔬 DNA (Crime Cases + Missing Identity)</div>
+            <div class="row">
+                <div class="field"><label>Pending (as on yesterday)</label><input type="number" id="pendingCrime" value="69"></div>
+                <div class="field"><label>New Cases Received</label><input type="number" id="newCrime" value="1"></div>
+            </div>
+            
+            <div class="subsection">
+                <div class="subtitle">👨‍🔬 B. Phani Bhushan (AD - I)</div>
+                <div class="row">
+                    <div class="field"><label>Pending at RO</label><input type="number" id="ro1Pending" value="60"></div>
+                    <div class="field"><label>New Alloted</label><input type="number" id="ro1New" value="0"></div>
+                    <div class="field"><label>Reported Today</label><input type="number" id="ro1Reported" value="6"></div>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <div class="subtitle">👩‍🔬 G. Reena Susan (SO-I)</div>
+                <div class="row">
+                    <div class="field"><label>Pending at RO</label><input type="number" id="ro2Pending" value="11"></div>
+                    <div class="field"><label>New Alloted</label><input type="number" id="ro2New" value="0"></div>
+                    <div class="field"><label>Reported Today</label><input type="number" id="ro2Reported" value="11"></div>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <div class="subtitle">👩‍🔬 D. Kanchana (SO - III)</div>
+                <div class="row">
+                    <div class="field"><label>Pending at RO</label><input type="number" id="ro3Pending" value="18"></div>
+                    <div class="field"><label>New Alloted</label><input type="number" id="ro3New" value="0"></div>
+                    <div class="field"><label>Reported Today</label><input type="number" id="ro3Reported" value="18"></div>
+                </div>
+                <div class="row">
+                    <div class="field"><label>FSL File Numbers</label><input type="text" id="ro3Files" value="DNA-547-26(C), DNA-534-26(C), DNA-407-26(C), DNA-512-26(C), DNA-315-26(C)"></div>
+                    <div class="field"><label>Quality (Positive/Negative)</label><input type="text" id="ro3Quality" value="Positive, Positive, Positive, Negative, Positive"></div>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <div class="subtitle">👨‍🔬 M. Malli Karjuna (SA - IV)</div>
+                <div class="row">
+                    <div class="field"><label>Pending at RO</label><input type="number" id="ro4Pending" value="16"></div>
+                    <div class="field"><label>New Alloted</label><input type="number" id="ro4New" value="1"></div>
+                    <div class="field"><label>Reported Today</label><input type="number" id="ro4Reported" value="17"></div>
+                </div>
+                <div class="row">
+                    <div class="field"><label>FSL Files</label><input type="text" id="ro4Files" value="DNA-483-26(C), DNA-496-26(C), DNA-529-26(C)"></div>
+                    <div class="field"><label>Quality</label><input type="text" id="ro4Quality" value="Positive, Positive, Positive"></div>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <div class="subtitle">👩‍🔬 T. Bhavya (SA - V)</div>
+                <div class="row">
+                    <div class="field"><label>Pending at RO</label><input type="number" id="ro5Pending" value="8"></div>
+                    <div class="field"><label>New Alloted</label><input type="number" id="ro5New" value="0"></div>
+                    <div class="field"><label>Reported Today</label><input type="number" id="ro5Reported" value="8"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 2: DNA MISSING IDENTITY ONLY -->
+        <div class="section-card">
+            <div class="section-title">🆔 DNA (Missing Identity Only)</div>
+            <div class="row">
+                <div class="field"><label>Pending (as on yesterday)</label><input type="number" id="pendingMiss" value="370"></div>
+                <div class="field"><label>New Cases Received</label><input type="number" id="newMiss" value="1"></div>
+            </div>
+            
+            <div class="subsection">
+                <div class="subtitle">👩‍🔬 S. Sumathi (SA - VI)</div>
+                <div class="row">
+                    <div class="field"><label>Pending at RO</label><input type="number" id="missRo1Pending" value="10"></div>
+                    <div class="field"><label>New Alloted</label><input type="number" id="missRo1New" value="0"></div>
+                    <div class="field"><label>Reported Today</label><input type="number" id="missRo1Reported" value="10"></div>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <div class="subtitle">👩‍🔬 S. Veera Kumari (AD - II)</div>
+                <div class="row">
+                    <div class="field"><label>Pending at RO</label><input type="number" id="missRo2Pending" value="173"></div>
+                    <div class="field"><label>New Alloted</label><input type="number" id="missRo2New" value="0"></div>
+                    <div class="field"><label>Reported Today</label><input type="number" id="missRo2Reported" value="173"></div>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <div class="subtitle">👨‍🔬 K.S. Ganesh (SO - II)</div>
+                <div class="row">
+                    <div class="field"><label>Pending at RO</label><input type="number" id="missRo3Pending" value="189"></div>
+                    <div class="field"><label>New Alloted</label><input type="number" id="missRo3New" value="1"></div>
+                    <div class="field"><label>Reported Today</label><input type="number" id="missRo3Reported" value="190"></div>
+                </div>
+                <div class="row">
+                    <div class="field"><label>FSL Files</label><input type="text" id="missRo3Files" value="DNA-1662-25, DNA-1644-25, DNA-1424-25, DNA-1647-25, DNA-1643-25"></div>
+                    <div class="field"><label>Quality</label><input type="text" id="missRo3Quality" value="Positive, Positive, Positive, Positive, Positive"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="pending-total" id="calculatedTotal">
+            📊 Totals will update automatically
+        </div>
+
+        <button type="button" id="saveBtn">💾 Save Today's Entry (Local)</button>
+        <button type="button" id="exportBtn" class="export-btn">📤 Export All Data (JSON/CSV)</button>
+        
+        <div id="saveStatus" class="save-status"></div>
+    </form>
+</div>
+
+<script>
+    // auto set today's date
+    const today = new Date().toISOString().slice(0,10);
+    document.getElementById('displayDate').innerText = today;
+
+    function updateTotals() {
+        // Crime section totals
+        let pendingCrime = parseInt(document.getElementById('pendingCrime').value) || 0;
+        let newCrime = parseInt(document.getElementById('newCrime').value) || 0;
+        let totalCrimeCases = pendingCrime + newCrime;
+        
+        let roReportedSum = 
+            (parseInt(document.getElementById('ro1Reported').value)||0) +
+            (parseInt(document.getElementById('ro2Reported').value)||0) +
+            (parseInt(document.getElementById('ro3Reported').value)||0) +
+            (parseInt(document.getElementById('ro4Reported').value)||0) +
+            (parseInt(document.getElementById('ro5Reported').value)||0);
+        
+        let newPendingCrime = totalCrimeCases - roReportedSum;
+        
+        // Missing section
+        let pendingMiss = parseInt(document.getElementById('pendingMiss').value) || 0;
+        let newMiss = parseInt(document.getElementById('newMiss').value) || 0;
+        let totalMissCases = pendingMiss + newMiss;
+        
+        let missReportedSum = 
+            (parseInt(document.getElementById('missRo1Reported').value)||0) +
+            (parseInt(document.getElementById('missRo2Reported').value)||0) +
+            (parseInt(document.getElementById('missRo3Reported').value)||0);
+        
+        let newPendingMiss = totalMissCases - missReportedSum;
+        
+        let totalPendingBoth = newPendingCrime + newPendingMiss;
+        let totalReportedToday = roReportedSum + missReportedSum;
+        
+        document.getElementById('calculatedTotal').innerHTML = `
+            📋 <strong>Daily Summary (${today})</strong><br>
+            🔹 DNA Crime + Missing Identity: Pending yesterday ${pendingCrime} + New ${newCrime} = Total ${totalCrimeCases}<br>
+            🔸 Reported today in Crime sec: ${roReportedSum} → New Pending: ${newPendingCrime}<br>
+            🔹 Missing Identity: Pending ${pendingMiss} + New ${newMiss} = Total ${totalMissCases}<br>
+            🔸 Reported today in Missing sec: ${missReportedSum} → New Pending: ${newPendingMiss}<br>
+            ✅ <strong>Total Reported Today (All Sections): ${totalReportedToday}</strong><br>
+            ⏳ <strong>Grand Total Pending as on ${today}: ${totalPendingBoth}</strong>
+        `;
+    }
+
+    // Attach event listeners to all numeric inputs for live totals
+    const inputs = document.querySelectorAll('input');
+    inputs.forEach(inp => {
+        inp.addEventListener('input', updateTotals);
+    });
+    
+    // Save data to localStorage
+    document.getElementById('saveBtn').addEventListener('click', () => {
+        const formData = {};
+        const allInputs = document.querySelectorAll('#dailyForm input');
+        allInputs.forEach(inp => {
+            if(inp.id) formData[inp.id] = inp.value;
+        });
+        formData.date = today;
+        formData.timestamp = new Date().toISOString();
+        
+        let existing = localStorage.getItem('apfsl_dna_daily');
+        let records = existing ? JSON.parse(existing) : [];
+        // check if entry already exists for today
+        const existingIndex = records.findIndex(rec => rec.date === today);
+        if(existingIndex !== -1) {
+            records[existingIndex] = formData;
+            document.getElementById('saveStatus').innerHTML = '✅ Updated today\'s entry successfully!';
+        } else {
+            records.push(formData);
+            document.getElementById('saveStatus').innerHTML = '✅ New daily entry saved!';
+        }
+        localStorage.setItem('apfsl_dna_daily', JSON.stringify(records));
+        setTimeout(() => {
+            document.getElementById('saveStatus').innerHTML = '';
+        }, 2500);
+    });
+    
+    // Export as CSV
+    document.getElementById('exportBtn').addEventListener('click', () => {
+        const allRecords = localStorage.getItem('apfsl_dna_daily');
+        if(!allRecords || JSON.parse(allRecords).length === 0) {
+            alert('No saved data yet. Save an entry first.');
+            return;
+        }
+        const records = JSON.parse(allRecords);
+        // flatten each record for CSV
+        const flatten = records.map(rec => {
+            return {
+                date: rec.date,
+                pendingCrime: rec.pendingCrime,
+                newCrime: rec.newCrime,
+                ro1Reported: rec.ro1Reported,
+                ro2Reported: rec.ro2Reported,
+                ro3Reported: rec.ro3Reported,
+                ro4Reported: rec.ro4Reported,
+                ro5Reported: rec.ro5Reported,
+                pendingMiss: rec.pendingMiss,
+                newMiss: rec.newMiss,
+                missRo1Reported: rec.missRo1Reported,
+                missRo2Reported: rec.missRo2Reported,
+                missRo3Reported: rec.missRo3Reported,
+                ro3Files: rec.ro3Files,
+                ro4Files: rec.ro4Files,
+                missRo3Files: rec.missRo3Files,
+                qualityCrime: rec.ro3Quality,
+                qualityMiss: rec.missRo3Quality
+            };
+        });
+        
+        const headers = Object.keys(flatten[0]);
+        let csvRows = [];
+        csvRows.push(headers.join(','));
+        for (const row of flatten) {
+            const values = headers.map(header => {
+                let val = row[header] || '';
+                if (typeof val === 'string' && (val.includes(',') || val.includes('"'))) {
+                    val = `"${val.replace(/"/g, '""')}"`;
+                }
+                return val;
+            });
+            csvRows.push(values.join(','));
+        }
+        const blob = new Blob([csvRows.join('\n')], { type: 'text/csv' });
+        const link = document.createElement('a');
+        const url = URL.createObjectURL(blob);
+        link.href = url;
+        link.download = `apfsl_dna_${today}.csv`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+        
+        document.getElementById('saveStatus').innerHTML = '📁 CSV Exported!';
+        setTimeout(() => {
+            document.getElementById('saveStatus').innerHTML = '';
+        }, 2000);
+    });
+    
+    // initial totals update
+    updateTotals();
+    
+    // auto-load if any previous data for today? (optional: prefill from localStorage)
+    function loadTodayIfExists() {
+        let existing = localStorage.getItem('apfsl_dna_daily');
+        if(existing) {
+            let records = JSON.parse(existing);
+            let todayRec = records.find(r => r.date === today);
+            if(todayRec) {
+                for(let key in todayRec) {
+                    let el = document.getElementById(key);
+                    if(el && key !== 'date' && key !== 'timestamp') {
+                        el.value = todayRec[key];
+                    }
+                }
+                updateTotals();
+                document.getElementById('saveStatus').innerHTML = '📂 Loaded today\'s saved data.';
+                setTimeout(() => {
+                    document.getElementById('saveStatus').innerHTML = '';
+                }, 1500);
+            }
+        }
+    }
+    loadTodayIfExists();
+</script>
+</body>
+</html>
